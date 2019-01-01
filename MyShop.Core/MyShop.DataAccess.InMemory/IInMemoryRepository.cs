@@ -1,4 +1,6 @@
-﻿using MyShop.Core.Models;
+﻿
+using MyShop.Core.Contracts;
+using MyShop.Core.Models;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyShop.DataAccess.InMemory
 {
-    public class InMemoryRepository<T> where  T : BaseEntity
+    public class InMemoryRepository<T> : IRepository<T> where T : BaseEntity
     {
         ObjectCache cache = MemoryCache.Default;
         List<T> items;
@@ -45,7 +47,7 @@ namespace MyShop.DataAccess.InMemory
             }
             else
             {
-                throw new Exception(className+" Not Found");
+                throw new Exception(className + " Not Found");
 
             }
 
@@ -75,7 +77,7 @@ namespace MyShop.DataAccess.InMemory
 
         public void Delete(string Id)
         {
-       
+
             T tToDelete = items.Find(i => i.Id == Id);
             if (tToDelete != null)
             {
@@ -106,8 +108,8 @@ namespace MyShop.DataAccess.InMemory
 
     }
 
-   
+
 
 
 }
-    
+
